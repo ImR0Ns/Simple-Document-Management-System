@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+  <title>DocuTrack | Edit your document</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/10.7.0/css/jquery.fileupload.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/10.7.0/js/jquery.fileupload.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" />
+  <link rel="stylesheet" href="/views/css/style.css">
+</head>
+<body>
+  <header>
+    <div class="row">
+      <div class="col-md-6">
+        <p class="signInTitle"><a href="/">DocuTrack</a></p>
+      </div>
+      <div class="col-md-6 text-center">
+        <p class="signInTitle">
+          <a href="/dashboard" class="">Go to dashboard</a>
+        </p>
+      </div>
+    </div>
+  </header>
+  <p style="margin-top: 100px;"></p>
+  <div id="pspdfkit" style="width: 100%; height: 80vh"></div>
+  <div class="text-center mt-3">
+    <button id="save-btn" class="btn btn-primary">Save</button>
+  </div>
+
+  <!-- Include jQuery if not already included -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- Include Bootstrap JS for the modal functionality -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Include PSPDFKit -->
+  <script src="/assets/pspdfkit.js"></script>
+  <script>
+    const baseUrl = `${window.location.protocol}//${window.location.host}/assets/`;
+
+    let pspdfkitInstance = null;
+
+    async function loadPDF(url) {
+      if (pspdfkitInstance) {
+        PSPDFKit.unload(pspdfkitInstance);
+      }
+
+      const arrayBuffer = await fetch(url).then(response => response.arrayBuffer());
+
+      PSPDFKit.load({
+        baseUrl,
+        container: '#pspdfkit',
+        document: arrayBuffer,
+      })
+      .then((instance) => {
+        pspdfkitInstance = instance;
+        console.log('PSPDFKit loaded', instance);
+      })
+      .catch((error) => {
+        console.error(error.message);
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const documentId = new URLSearchParams(window.location.search).get('docId');
+      if (documentId) {
+        const pdfUrl = `/pdfs/view/${documentId}`;
+        loadPDF(pdfUrl);
+      }
+
+      document.getElementById('save-btn').addEventListener('click', async () => {
+        if (pspdfkitInstance) {
+          const pdfData = await pspdfkitInstance.exportPDF();
+          savePDF(pdfData, documentId);
+        } else {
+          alert('Failed to load PSPDFKit instance.');
+        }
+      });
+    });
+
+    async function savePDF(pdfData, documentId) {
+      const formData = new FormData();
+      formData.append('pdf', new Blob([pdfData], { type: 'application/pdf' }));
+      formData.append('docId', documentId);
+
+      try {
+        const response = await fetch('/resave-pdf', {
+          method: 'POST',
+          body: formData,
+        });
+
+        if (response.ok) {
+          alert('PDF saved successfully!');
+          window.location.href = '/dashboard'; // Redirect to dashboard after saving
+        } else {
+          alert('Failed to save PDF.');
+        }
+      } catch (error) {
+        console.error('Error saving PDF:', error);
+        alert('Failed to save PDF.');
+      }
+    }
+  </script>
+</body>
+</html>

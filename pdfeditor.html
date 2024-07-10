@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+  <title>DocuTrack | Upload your document</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/10.7.0/css/jquery.fileupload.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/10.7.0/js/jquery.fileupload.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" />
+  <link rel="stylesheet" href="./views/css/style.css">
+</head>
+<body>
+  <header>
+    <div class="row">
+      <div class="col-md-6">
+        <p class="signInTitle"><a href="/">DocuTrack</a></p>
+      </div>
+      <div class="col-md-6 text-center">
+        <p class="signInTitle goDashBoard">
+          <button id="save-btn" class="btn btn-primary">Save</button>
+          <a href="/dashboard" >Go to dashboard</a>
+        </p>
+      </div>
+    </div>
+  </header>
+  <p style="margin-top: 100px;"></p>
+  <div class="container main-container fullContainer containerTOHide" style="width: 90%;">
+    <h1 class="text-center mt-5 font-weight-bold pt-4 heading-main chooseText">Choose your document </h1>
+    <div class="row justify-content-center mt-5">
+      <div class="col-md-10 text-center">
+        <div class="fallback">
+          <div class="custom-file-upload custom-file-upload-color-1 choosePDFFile" id="pdf-dropzone">
+            <input type="file" id="file-input" accept=".pdf" style="margin-top: 100px;" />
+          </div> <br><br>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="pspdfkit" style="width: 100%; height: 100vh"></div>
+
+  <!-- Modal for saving PDF -->
+<div class="modal fade" id="modalSavePDF" tabindex="-1" role="dialog" aria-labelledby="modalSavePDFLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalSavePDFLabel">Save Your Document</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="savePDFForm">
+          <div class="form-group">
+            <label for="documentTitle">Document Title</label>
+            <input type="text" class="form-control" id="documentTitle" placeholder="Document Title" required>
+          </div>
+          <div class="form-group" style="margin-top: 20px;">
+            <label for="documentType">Document Type</label>
+            <input type="text" class="form-control" id="documentType" placeholder="Document Type" required>
+          </div>
+          <button type="button" class="btn btn-primary" id="savePDFButton">Save</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <!-- Include jQuery if not already included -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- Include Bootstrap JS for the modal functionality -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="index.js"></script>
+</body>
+</html>

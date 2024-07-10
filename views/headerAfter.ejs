@@ -1,0 +1,28 @@
+<!-- This header is after log-in -->
+<header>
+    <div class="container-fluid textForNavDash">
+      <div class="row">
+        <div class="col-md-4">
+          <a href="/dashboard" style="color: white;">DocuTrack</a>
+        </div>
+        <div class="col-md-4 text-center cc">
+          <form action="/search" method="GET" class="d-flex">
+            <input class="searchDoc form-control" type="search" name="query" placeholder="Search your document...">
+            <button type="submit" class="loopSearch"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </form>
+        </div>
+        <div class="col-md-4 d-flex justify-content-end lastCol">
+          <i class="fa-regular fa-user userIconDrop" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></i>
+          <div class="dropdown">
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+            <li><a class="dropdown-item" href="/myDocuments">My Documents</a></li>
+            <li><a class="dropdown-item" href="/sharedByMe">Documents shared by me</a></li>
+            <li><a class="dropdown-item" href="/sharedWithMe">Documents shared with me</a></li>
+            <li><a class="dropdown-item" href="/signout">Sign Out</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+</header>

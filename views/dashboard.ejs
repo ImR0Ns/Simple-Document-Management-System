@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DocuTrack | Dashboard</title>
+    <!-- PDFMake and Bootstrap CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.72/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.72/vfs_fonts.js"></script>
+
+    <!-- JQuery & Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <!-- JQuery & Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Style linking && Javascript -->
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./js/script.js"></script>
+    <!-- Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/1e97ff2f9f.js" crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+  <!-- Include Header -->
+
+  <%- include('./headerAfter') %>
+
+<section class="dashboradSection">
+  <div class="container">
+    <div class="manageDocumentsInDash">
+      <div class="row">
+        <div class="col-md-6">
+          <p class="documentsTitle">Manage documents</p>
+        </div>
+        <div class="col-md-6 text-end">
+          <a href="/myDocuments" class="myDocumentsButton">My documents!</a>
+        </div>
+      </div>
+      <p class="documentsActive"><%= documents.length %> documents active</p>
+    </div>
+
+    <div class="text-center containerOfDocuments">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="col-md-12 boxForEditDocument text-center">
+            <p class="textForEdit">Edit your document</p>
+            <i class="fa-solid fa-file-pen fa-6x imageForEdit"></i>
+            <p class="descriptionForEdit">Our intuitive document editor allows you to make precise edits and improvements effortlessly. Whether you need to add annotations, add text, or insert images, our user-friendly interface ensures a seamless editing experience.</p>
+            <button class="uploadDocuments"><a href="../pdfeditor.html?userId=<%= user._id %>" class="">Edit Document</a></button>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="col-md-12 boxForEditDocument" style="padding-bottom: 74px;">
+            <p class="textForEdit">Upload your document</p>
+            <i class="fa-solid fa-upload fa-6x imageForEdit"></i>
+            <p class="descriptionForEdit"> Easily upload your documents to our platform. Our secure and straightforward upload feature ensures that your files are safely stored and easily accessible whenever you need them.</p>
+            <button class="uploadDocuments" data-bs-toggle="modal" data-bs-target="#modalTemplates">Upload Document</button>
+          </div>
+        </div>
+      </div>  
+      <div>
+        <!-- Modal for tempalte show -->
+        <div class="modal fade" id="modalTemplates" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title text-center" id="exampleModalLabel">Upload your document!</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body text-start">
+                <form action="/upload" method="post" enctype="multipart/form-data">
+                  <div class="form-group">
+                    <label for="documentTitle">Document Title</label>
+                    <input type="text" class="form-control" name="documentTitle" id="documentTitle" placeholder="Document Title" required>
+                  </div>
+                  <div class="form-group" style="margin-top: 20px;">
+                    <label for="documentType">Document Type</label>
+                    <input type="text" class="form-control" name="documentType" id="documentType" placeholder="Document Type" required>
+                  </div>
+                  <div class="form-group" style="margin-top: 20px;">
+                      <label for="pdf">Choose PDF File</label>
+                      <input type="file" class="form-control-file" name="pdf" id="pdf" accept=".pdf" required>
+                  </div>
+                    <div class="modal-footer" style="margin-top: 20px;">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save Document</button>
+                    </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="container myLastDocumentsBox">
+      <p class="myLastDocuments">My last documents</p>
+      <div class="row rowFromDocumnets">
+        <div class="col-md-2">
+          <p>Upload date</p>
+        </div>
+        <div class="col-md-2">
+          <p>Document file name</p>
+        </div>
+        <div class="col-md-2">
+          <p>Document title</p>
+        </div>
+        <div class="col-md-2">
+          <p>Document Type</p>
+        </div>
+        <div class="col-md-2">
+          <p>Operations</p>
+        </div>
+        <div class="col-md-2"></div>
+      </div>
+    </div>
+    
+    <div class="container">
+      <% documents.forEach(doc => { %>
+        <div class="row rowToDisplay">
+            <div class="col-md-2">    
+              <%= new Date(doc.createdAt).toLocaleDateString() %>
+            </div>
+            <div class="col-md-2"><%= doc.fileName %></div>
+            <div class="col-md-2"><%= doc.documentTitle %></div>
+            <div class="col-md-2"><%= doc.documentType %></div>
+            <div class="col-md-1">
+                <a href="/view/<%= doc._id %>" target="_blank" class="addUnderLine">View</a>
+            </div>
+            <div class="col-md-1">
+                <a href="/download/<%= doc._id %>" class="addUnderLine">Download</a>
+            </div>
+            <div class="col-md-1">
+                <!-- Button trigger modal -->
+                <button type="button" class="buttonForShare" style="padding: 5px 10px 5px 10px; margin-left: 10px;" data-bs-toggle="modal" data-bs-target="#shareModal<%= doc._id %>">
+                  Share
+              </button>
+            </div>
+            <div class="col-md-1">
+              <a href="/pdfedit?docId=<%= doc._id %>" class="btn btn-primary buttonForShare" style="padding: 5px 10px 5px 10px; margin-left: 10px;">Edit</a>
+            </div>
+        </div>
+    
+        <!-- Share Modal for Document with ID <%= doc._id %> -->
+        <div class="modal fade" id="shareModal<%= doc._id %>" tabindex="-1" role="dialog" aria-labelledby="shareModalLabel<%= doc._id %>" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="shareModalLabel<%= doc._id %>">Share Document</h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form id="shareForm<%= doc._id %>" action="/share/<%= doc._id %>" method="POST">
+                        <div class="modal-body">
+                            <input type="hidden" name="pdfId" value="<%= doc._id %>">
+                            <div class="form-group">
+                                <label for="recipientEmails<%= doc._id %>">Recipient's Emails (comma-separated)</label>
+                                <textarea class="form-control" id="recipientEmails<%= doc._id %>" name="recipientEmails" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="message<%= doc._id %>">Message (optional)</label>
+                                <textarea class="form-control" id="message<%= doc._id %>" name="message" rows="3"></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Share</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    <% }); %>
+  </div>
+
+  <!--Div container-->
+  </div>
+</section>
+
+
+</body>
+</html>

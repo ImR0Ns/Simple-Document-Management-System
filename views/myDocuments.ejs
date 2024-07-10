@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DocuTrack | Dashboard</title>
+    <!-- PDFMake and Bootstrap CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.72/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.72/vfs_fonts.js"></script>
+
+    <!-- JQuery & Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <!-- JQuery & Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Style linking && Javascript -->
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./js/script.js"></script>
+    <!-- Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/1e97ff2f9f.js" crossorigin="anonymous"></script>
+
+</head>
+<body>
+  <!-- Include Header -->
+  <%- include('./headerAfter') %>
+
+<div class="container">
+    <div class="manageDocumentsInDash" style="margin-top: 100px;">
+        <p class="documentsTitle">My Documents</p>
+        <p class="documentsActive">Total documents: <%= totalDocuments %></p>
+    </div>
+
+    <div class="container">
+        <div class="d-flex align-items-center justify-content-between" style="margin-top: 30px;">
+            <p class="foldersText">Folders</p>
+            <button class="btn btn-primary addFolderButton" data-bs-toggle="modal" data-bs-target="#addFolderModal">
+                Add folder
+            </button>
+        </div>
+        <div class="row" style="margin-top: 30px; margin-bottom: 50px;">
+            <% folders.forEach((folder, index) => { %>
+                <div class="col-md-3" style="margin-top: 20px;">
+                    <div class="folder">
+                        <div class="forFolderNumber text-center">
+                            <a href="/folders/<%= folder._id %>">
+                                <i class="fa-solid fa-folder fa-5x theFolderBox"></i>
+                                <p style="margin-top: 10px;"><%= folder.folderName %></p>
+                                <p style="margin-top: -15px;">(Documents: <%= folder.documents.length %>)</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+
+        <div class="d-flex align-items-center justify-content-between" style="margin-top: 30px;">
+            <p class="foldersText">Documents</p>
+            <button class="btn btn-primary addFolderButton" data-bs-toggle="modal" data-bs-target="#modalTemplates">
+                Upload document
+            </button>
+        </div>
+
+        <div class="row" style="margin-top: 30px; margin-bottom: 50px;">
+            <!-- Documents Display -->
+            <% documents.forEach((doc, index) => { %>
+                <div class="col-md-4" style="margin-top: 20px;">
+                    <div class="">
+                        <div class="forDocumentNumber">
+                            <div class="row">
+                                <div class="col-md-6 text-start">
+                                    <a href="/pdfedit?docId=<%= doc._id %>" class="btn editFileButton">Edit</a>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="text-end">
+                                        <button type="button" class="btn butonPlus" data-bs-toggle="modal" data-bs-target="#assignFolderModal<%= doc._id %>">
+                                            +
+                                        </button>
+                                    </div> 
+                                </div>
+                            </div>               
+                        </div>
+                        <div class="forDisplayPDF section">
+                            <iframe src="/pdfs/view/<%= doc._id %>#toolbar=0" width="100%" height="250px" scrolling="no"></iframe>
+                        </div>
+                        <div class="forDisplayDataPDF">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p style="font-size: 20px; font-weight: 600;"><%= doc.documentTitle %></p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p><%= new Date(doc.createdAt).toLocaleString() %></p>
+                                </div>
+                            </div>
+                            <p><%= doc.fileName %></p>
+                            <p><%= doc.documentType %></p>
+                        </div>
+                        <div class="forDisplayButtonsPDF">
+                            <div class="row text-center">
+                                <div class="col-md-3">
+                                    <button class="buttonForShare">
+                                        <a href="/view/<%= doc._id %>" target="_blank">View</a>
+                                    </button>
+                                </div>
+                                <div class="col-md-3">
+                                    <button class="buttonForShare">
+                                        <a href="/download/<%= doc._id %>">Download</a>
+                                    </button>
+                                </div>
+                                <div class="col-md-3">
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="buttonForShare" data-bs-toggle="modal" data-bs-target="#shareModal<%= doc._id %>">
+                                        Share
+                                    </button>
+                                </div>
+                                <div class="col-md-3">
+                                    <!-- Delete Button -->
+                                    <form action="/delete/<%= doc._id %>" method="POST" class="d-inline">
+                                        <button type="submit" class="btn btn-danger btn-sm buttonForShare" style="margin-left: 0px;">Delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Share Modal -->
+                        <div class="modal fade" id="shareModal<%= doc._id %>" tabindex="-1" role="dialog" aria-labelledby="shareModalLabel<%= doc._id %>" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="shareModalLabel<%= doc._id %>">Share Document</h5>
+                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form id="shareForm<%= doc._id %>" action="/share/<%= doc._id %>" method="POST">
+                                        <div class="modal-body">
+                                            <input type="hidden" name="pdfId" value="<%= doc._id %>">
+                                            <div class="form-group">
+                                                <label for="recipientEmails<%= doc._id %>">Recipient's Emails (comma-separated)</label>
+                                                <textarea class="form-control" id="recipientEmails<%= doc._id %>" name="recipientEmails" required></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="message<%= doc._id %>">Message (optional)</label>
+                                                <textarea class="form-control" id="message<%= doc._id %>" name="message" rows="3"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Share</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Assign Folder Modal -->
+                        <div class="modal fade" id="assignFolderModal<%= doc._id %>" tabindex="-1" role="dialog" aria-labelledby="assignFolderModalLabel<%= doc._id %>" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="assignFolderModalLabel<%= doc._id %>">Assign to Folder</h5>
+                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form action="/folders/assign" method="POST">
+                                        <div class="modal-body">
+                                            <input type="hidden" name="pdfId" value="<%= doc._id %>">
+                                            <div class="form-group">
+                                                <label for="folderSelect<%= doc._id %>">Select Folder</label>
+                                                <select class="form-control" id="folderSelect<%= doc._id %>" name="folderId" required>
+                                                    <% folders.forEach(folder => { %>
+                                                        <option value="<%= folder._id %>"><%= folder.folderName %></option>
+                                                    <% }); %>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Assign</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+</div>
+
+<!-- Add Folder Modal -->
+<div class="modal fade" id="addFolderModal" tabindex="-1" role="dialog" aria-labelledby="addFolderModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addFolderModalLabel">Add Folder</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="/folders/create" method="POST">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="folderName">Folder Name</label>
+                        <input type="text" class="form-control" id="folderName" name="folderName" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Create Folder</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal for tempalte show -->
+<div class="modal fade" id="modalTemplates" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-center" id="exampleModalLabel">Upload your document!</h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body text-start">
+          <form action="/uploadTwo" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+              <label for="documentTitle">Document Title</label>
+              <input type="text" class="form-control" name="documentTitle" id="documentTitle" placeholder="Document Title" required>
+            </div>
+            <div class="form-group" style="margin-top: 20px;">
+              <label for="documentType">Document Type</label>
+              <input type="text" class="form-control" name="documentType" id="documentType" placeholder="Document Type" required>
+            </div>
+            <div class="form-group" style="margin-top: 20px;">
+                <label for="pdf">Choose PDF File</label>
+                <input type="file" class="form-control-file" name="pdf" id="pdf" accept=".pdf" required>
+            </div>
+              <div class="modal-footer" style="margin-top: 20px;">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary">Save Document</button>
+              </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

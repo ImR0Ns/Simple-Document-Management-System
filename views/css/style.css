@@ -1,0 +1,499 @@
+* {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+a {
+    text-decoration: none;
+    color: black;
+}
+header  {
+    background-color: #91DDCF;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+.logoWeb {
+    height: 120px;
+}
+.mountainBg {
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: 900px;
+    top: 0;
+    filter: brightness(50%);
+}
+.titleWeb {
+    font-size: 18px;
+}
+.navbar {
+    padding: 30px 0px 30px 0px;
+}
+.navbar-brand {
+    font-size: 32px;
+    color: white;
+}
+.nav-item a {
+    color: white;
+}
+.introduction {
+    margin-top: 180px;
+}
+.introductionPOne {
+    font-size: 24px;
+    font-weight: 600;
+    margin: 20px 0px 0px 0px;
+    color: white;
+}
+.introductionPTwo {
+    color: white;
+    padding: 30px 0px 0px 0px;
+    width: 500px;
+    text-align: center;
+    margin: 0 auto;
+}
+.introductionImg {
+    width: 550px;
+}
+.introductionFirstCol {
+    margin-top: 300px;
+}
+.introductionButton {
+    padding: 15px 55px 15px 55px;   
+    background-color: #91DDCF; 
+    border: none;
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 20px;
+    color: white; /* color for text? */
+    border-radius: 5px;
+    margin-top: 100px;
+}
+.whyUs {
+    margin-top: 220px;
+}
+.whyFirstP {
+    font-size: 32px;
+    font-weight: 600;
+    color: #91DDCF;
+    margin-top: 300px;
+}
+.imgWhyChoose {
+    width: 500px;
+    border-radius: 5px;
+}
+.firstTitleForWhy {
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 150px;
+}
+.boxWhy {
+    background-color: #DBE2EF; 
+    border-radius: 5px;
+    padding: 50px;
+    margin: 50px 0px 0px 0px;
+}
+.textWhyBox {
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #3F72AF;
+}
+.textWhyBoxTwo {
+    width: 450px;
+    color: black;
+}
+.rowStartNow {
+    margin-top: 100px;
+}
+.containerFooter {
+    background-color: #91DDCF;   
+    margin-top: 50px;
+    padding: 50px;
+    border-radius: 10px; 
+    color: white;
+}
+.containerFooter a{
+    color: white;
+}
+.signInTitle {
+    padding: 15px;
+    font-size: 24px;
+}
+.signInTitle a {
+    color: white;
+}
+.containerSigIn {
+    background-color: #F7F9F2;   
+    width: 500px;
+
+    border-radius: 10px;
+    margin-top: 120px;
+    padding: 50px;
+}
+.signInText {
+    font-size: 24px;
+    font-weight: 550;
+    margin-bottom: 40px;
+}
+.inputBox {
+    margin-bottom: 20px;
+    width: 250px;
+    padding: 5px;
+    border: 1px solid #112D4E;
+    border-radius: 5px;
+    padding-left: 25px;
+    border: none;
+    outline: none;
+}
+
+.inputBox::placeholder {
+    text-align: left;
+}
+.send2fa {
+    background-color: #91DDCF; 
+    border: none;
+    padding: 5px 10px 5px 10px;
+    border-radius: 5px;
+    color: white;
+}
+.signInButton {
+    width: 250px;
+    background-color: #91DDCF; 
+    border: none;
+    padding: 10px;
+    color: white;
+}
+.shadow {
+    -webkit-box-shadow: 0 20px 20px -10px rgba(0, 0, 0, 0.8);
+    -moz-box-shadow: 0 20px 20px -10px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 20px 20px -10px rgba(0, 0, 0, 0.8);
+}
+.textForNavDash {
+    color: white;
+    font-size: 24px;
+    padding: 20px;
+}
+.searchDoc {
+    font-size: 18px;
+    width: 100%;
+    padding-left: 20px;
+    border-radius: 0px;
+}
+.lastCol {
+    padding-right: 50px;
+    padding-top: 10px;
+}
+.dashboradSection {
+    margin-top: 100px;
+}
+.error {
+    color: red;
+}
+.correct {
+    color: green;
+}
+.valid {
+    border: 1.5px solid green;
+}
+.invalid {
+    border: 1.5px solid red;
+}
+.passReq p {
+    font-size: 12px;
+    text-align: left;
+    padding-left: 80px;
+    margin-bottom: 0px;
+}
+.userIconDrop {
+    cursor: pointer;
+}
+.documentsTitle {
+    font-size: 24px;
+    font-weight: 600;
+    color: white;
+}
+.boxForEditDocument {
+    background-color: #F7F9F2;
+    padding: 20px 50px 50px 50px;
+}
+.textForEdit {
+    font-size: 22px;
+    font-weight: 600;
+}
+.imageForEdit {
+    margin-top: 50px;
+}
+.descriptionForEdit {
+    width: 70%;
+    margin: 0 auto;
+    margin-top: 50px;
+}
+.documentsActive {
+    font-size: 18px;
+    color: white;
+}
+.myDocumentsButton {
+    text-decoration: underline;
+    color: white;
+}
+.myLastDocumentsBox {
+    background-color: #91DDCF;
+    padding: 25px;
+    margin-top: 20px;
+    border-radius: 5px;
+    color: white;
+}
+.containerOfDocuments {
+    margin-top: 20px;
+}
+.sendYourDocuments {
+    font-size: 24px;
+}
+.titleOfDoc {
+    margin-top: 25px;
+    font-weight: 600;
+}
+.subTitleOfDoc {
+    margin-top: -14px;
+    font-size: 14px;
+}
+.forArrow i {
+    margin-top: 40px;
+}
+.uploadDocuments {
+    margin-top: 50px;
+    padding: 10px 40px 10px 40px;
+    background-color: #91DDCF;
+    font-weight: 550;
+    border: none;
+    border-radius: 5px;
+    color: white;
+}
+.uploadDocuments a {
+    color: white;
+}
+.imgTemplate {
+    width: 200px;
+    margin-left: 30px;
+}
+.buttonTemplates {
+    background-color: transparent;
+    border: none;
+}
+.templateChecker {
+    margin-top: 25px;
+}
+.theInputTemplates {
+    border: none;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid black;
+}
+.textAreaTemplate {
+    resize: none;
+}
+
+.myLastDocumentDash {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: 600;
+}
+.documentInfo {
+    font-size: 20px;
+}
+.myLastDocuments {
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 20px;
+}
+.rowFromDocumnets {
+    margin-top: 25px;
+}
+.rowToDisplay {
+    margin-top: 20px;
+    margin-bottom: 50px;
+    padding: 25px;
+    background-color: #F7F9F2;
+    border-radius: 5px;
+}
+.addUnderLine {
+    text-decoration: underline;
+}
+.buttonForShare {
+    background-color: #91DDCF;
+    border: none;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+}
+.buttonForShare a {
+    color: white;
+}
+.searchDoc {
+    border: none;
+}
+.manageDocumentsInDash {
+    background-color: #91DDCF;
+    padding: 50px;
+    border-radius: 5px;
+}
+.fullContainer {
+    background-color: #F7F9F2;
+    border-radius: 5px;
+    margin-top: 150px;
+    padding: 10px 0px 0px 0px;
+}
+.chooseText {
+    font-size: 24px;
+}
+.editButtonPdf {
+    background-color: #91DDCF;
+    border: none;
+    font-size: 20px;
+    color: white;
+}
+.choosePDFFile {
+    margin-top: -30px;
+}
+.forButtonColor {
+    background-color: #91DDCF;
+    color: white;
+}
+.titleSelected {
+    font-size: 20px;
+}
+.forMyDocumentsData {
+    background-color: #F7F9F2;
+    padding: 50px;
+    border-radius: 5px;
+}
+.profileBoxShow {
+    background-color: #F7F9F2;
+    padding: 50px;
+    border-radius: 5px;
+}
+.profileBoxShow i {
+    border: 1px solid black;
+    padding: 25px;
+    border-radius: 50%;
+}
+.usernameMyProfile {
+    margin-top: 20px;
+}
+.accDetailsMy {
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: -20px;
+}
+.loopSearch {
+    border: none;
+    background-color: white;
+}
+.forDisplayPDF {
+    background-color: #eef1e5;
+    padding: 20px;
+    overflow-y: auto
+}
+.forDisplayDataPDF {
+    background-color: #F7F9F2;
+    padding: 20px;
+}
+.forDisplayButtonsPDF {
+    background-color: #eef1e5;
+    padding: 20px;
+}
+.forDocumentNumber {
+    background-color: #F7F9F2; 
+    padding: 10px;
+    text-align: center;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.theFolderBox {
+    color: #91DDCF;
+}
+.foldersText {
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: 600;
+}
+.butonPlus {
+    font-size: 30px;
+}
+.addFolderButton {
+    background-color: #91DDCF;
+    border: none;
+}
+.renameFolderButt {
+    background-color: #F7F9F2;
+    color: black;
+    border: none;
+}
+.renameFolderButt:hover {
+    background-color: #F7F9F2;
+}
+.goDashBoard {
+    text-align: end;
+    margin-right: 20px;
+}
+.goDashBoard button {
+    background-color: #F7F9F2;
+    border: none;
+    color: black;
+    margin-right: 20px;
+}
+.editFileButton {
+    background-color: #91DDCF;
+    border: none;
+    color: white;
+    padding: 5px 20px 5px 20px;
+}
+.editFileButton:hover {
+    background-color: #91DDCF;
+    color: white;
+}
+
+/* for phone */
+@media only screen and (max-width: 1024px) {
+    .textWhyBoxTwo {
+        width: auto;
+    }
+    .imgWhyChoose {
+        width: 100%;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .textWhyBoxTwo {
+        width: auto;
+    }
+    .introductionImg {
+        width: 200px;
+        margin-top: 50px;
+    }
+    .navbar-brand {
+        font-size: 22px;
+    }
+    .imgWhyChoose {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 375px) {
+    .introductionImg {
+        width: 0px;
+    }
+    .imgWhyChoose {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 320px) {
+    .introductionImg {
+        width: 0px;
+    }
+    .imgWhyChoose {
+        width: 100%;
+    }
+}
