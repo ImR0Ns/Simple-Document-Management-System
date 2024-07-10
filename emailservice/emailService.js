@@ -1,15 +1,20 @@
 //for email handling
 const nodemailer = require('nodemailer');
 
-//send registration email
-async function sendRegistrationEmail(userEmail, title, name, verificationLink) {
-    const transporter = nodemailer.createTransport({
+//
+function createTransporter() {
+    return nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: '',//your email 
-            pass: '',//your email pass
+            user: '', //your email (example@gmail.com)
+            pass: '', // your password
         },
     });
+}
+
+//send registration email
+async function sendRegistrationEmail(userEmail, title, name, verificationLink) {
+    const transporter = createTransporter();
 
     const mailOptions = {
         from: 'your-email@gmail.com',
@@ -87,13 +92,7 @@ async function sendRegistrationEmail(userEmail, title, name, verificationLink) {
 
 //send Two Factor Auth code
 async function send2FAEmail(userEmail, token) {
-    const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: 'programarecudarius@gmail.com',
-            pass: 'nbdsagsujxpojvly',
-        },
-    });
+    const transporter = createTransporter();
     const mailOptions = {
         from: 'your-email@gmail.com',
         to: userEmail,
@@ -166,13 +165,7 @@ async function send2FAEmail(userEmail, token) {
 
 // Send password reset email
 async function sendPasswordResetEmail(userEmail, name, resetLink) {
-    const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: 'programarecudarius@gmail.com',
-            pass: 'nbdsagsujxpojvly',
-        },
-    });
+    const transporter = createTransporter();
     const mailOptions = {
         from: 'your-email@gmail.com',
         to: userEmail,
@@ -247,13 +240,7 @@ async function sendPasswordResetEmail(userEmail, name, resetLink) {
 }
 // Send document share email
 async function sendShareDocumentEmail(userEmail, senderName, documentTitle, documentLink, message) {
-    const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: 'programarecudarius@gmail.com',
-            pass: 'nbdsagsujxpojvly',
-        },
-    });
+    const transporter = createTransporter();
     const mailOptions = {
         from: 'your-email@gmail.com',
         to: userEmail,
@@ -340,13 +327,7 @@ async function sendShareDocumentEmail(userEmail, senderName, documentTitle, docu
 }
 
 async function sendDocumentEditedEmail(userEmail, senderName, documentTitle, documentLink) {
-    const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: 'programarecudarius@gmail.com',
-            pass: 'nbdsagsujxpojvly',
-        },
-    });
+    const transporter = createTransporter();
     const mailOptions = {
         from: 'your-email@gmail.com', // Replace with your email
         to: userEmail,
